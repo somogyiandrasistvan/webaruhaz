@@ -4,31 +4,27 @@ $(function () {
   const ARTICLE = $("article");
   ARTICLE.html("<table></table>");
   const ARTICLEELEM = $("article table");
-
   ARTICLEELEM.html("<thead></thead><tbody></tbody>");
   const ARTICLEHEAD = $("article table thead");
-  let head = th();
-  ARTICLEHEAD.append(head);
-
   const ARTICLEBODY = $("article table tbody");
-  let txt = osszealit(KUTYAK);
-  ARTICLEBODY.append(txt);
-
   const FOOTER = $("footer");
   const HEADER = $("header");
+  const ASIDE = $("aside");
   const NAV = $("nav");
   FOOTER.append("<p>Somogyi András</p>");
   HEADER.append("<h1>adatok listázása</h1>");
+  let sz = 0;
+  let head = th();
+  ARTICLEHEAD.append(head);
+  let szamlalo = osszealit(KUTYAK, sz);
   let menu = nav();
   NAV.append(menu);
 
   section();
-  const ASIDE = $("aside");
-  let adat = elemkattintas(ASIDE);
-  xkattintas(txt);
+  let adat = elemkattintas(ASIDE, szamlalo);
 });
 
-function osszealit(KUTYAK) {
+function osszealit(KUTYAK, sz) {
   let txt = "";
   for (let index = 0; index < KUTYAK.length; index++) {
     txt +=
@@ -39,13 +35,17 @@ function osszealit(KUTYAK) {
       "</td><td>" +
       KUTYAK[index].fajta +
       "</td><td>" +
-      "<button type='button' class='x" +
-      index +
+      "<button type='button' class='"+
+      sz +
       "'>X</button>" +
       "</tr>";
+      sz++
+      console.log(sz);
   }
+  const ARTICLEBODY = $("article table tbody");
+  ARTICLEBODY.append(txt);
 
-  return txt;
+  return sz;
 }
 
 function th() {
@@ -61,8 +61,7 @@ function nav() {
   return nav;
 }
 
-function elemkattintas(ASIDE) {
-  let adat = [];
+function elemkattintas(ASIDE, sz) {
   const GOMB = $(".gomb");
   let ELEM = "";
   $(".gomb").click(function () {
@@ -79,27 +78,11 @@ function elemkattintas(ASIDE) {
       ASIDE.html(ELEM);
     });
     $(".kuld").click(function () {
-      var nev = $("#nev").val();
-      var kor = $("#kor").val();
-      var fajta = $("#fajta").val();
-      adat[0] = nev;
-      adat[1] = kor;
-      adat[2] = fajta;
-
-      let txt = "";
-      txt +=
-      "<tr><td>" +
-      adat[0] +
-      "</td><td>" +
-      adat[1] +
-      "</td><td>" +
-      adat[2] +
-      "</td><td>" +
-      "<button type='button' class='xuj'>X</button></tr>";
-    
-      const ARTICLEBODY = $("article table tbody");
-      ARTICLEBODY.append(txt);
-    
+      var neve = $("#nev").val();
+      var kora = $("#kor").val();
+      var fajtaja = $("#fajta").val();
+      let adat = [{ nev: neve, kor: kora, fajta: fajtaja }];
+      osszealit(adat, sz);
     });
   });
 }
@@ -111,7 +94,7 @@ function section() {
     "<form class='section'><div><input type='text' class='form-control' id='TN' placeholder='név' name='TN'></div><div><input type='text' class='form-control' id='TN' placeholder='pl.: >12' name='TN'></div><div><input type='text' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' class='gomb'>Új elem</button></form>";
   SECTION.append(elem);
 }
-
+/*
 function xkattintas(txt) {
   for (let index = 0; index < txt.length; index++) {
     const x = $(".x" + index);
@@ -120,3 +103,4 @@ function xkattintas(txt) {
     });
   }
 }
+*/
