@@ -1,0 +1,57 @@
+main {
+  margin: auto;
+  width: 80%;
+}
+table {
+  margin: auto;
+  width: 80%;
+  border-collapse: collapse;
+}
+td,
+th {
+  border: 1px solid gray;
+  padding-bottom: 10px;
+}
+th {
+  text-align: left;
+  color: white;
+  background-color: black;
+}
+footer {
+  text-align: center;
+}
+li {
+  list-style-type: none;
+  display: inline;
+  padding-right: 15px;
+}
+nav {
+  background-color: gainsboro;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-bottom: 10px;
+}
+
+li a {
+  color: gray;
+  text-decoration: none;
+}
+li a.active {
+  color: black;
+}
+li a:hover:not(.active) {
+    color: dimgray;
+  }
+.section {
+  display: flex;
+  justify-content: space-around;
+}
+table{
+  margin-top: 10px;
+}
+article{
+    margin-top: 10px;
+    border-top: 1px solid grey;
+}
