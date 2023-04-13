@@ -24,7 +24,8 @@ $(function () {
 
   section();
   const ASIDE = $("aside");
-  kattintas(ASIDE);
+  let adat = elemkattintas(ASIDE);
+  xkattintas(txt);
 });
 
 function osszealit(KUTYAK) {
@@ -37,7 +38,11 @@ function osszealit(KUTYAK) {
       KUTYAK[index].kor +
       "</td><td>" +
       KUTYAK[index].fajta +
-      "</td></tr>";
+      "</td><td>" +
+      "<button type='button' class='x" +
+      index +
+      "'>X</button>" +
+      "</tr>";
   }
 
   return txt;
@@ -45,7 +50,7 @@ function osszealit(KUTYAK) {
 
 function th() {
   let txt = "";
-  txt += "<tr><th>nev</th><th>kor</th><th>faj</th></tr>";
+  txt += "<tr><th>nev</th><th>kor</th><th>faj</th><th></th></tr>";
   return txt;
 }
 
@@ -56,12 +61,13 @@ function nav() {
   return nav;
 }
 
-function kattintas(ASIDE) {
+function elemkattintas(ASIDE) {
+  let adat = [];
   const GOMB = $(".gomb");
   let ELEM = "";
   $(".gomb").click(function () {
     ELEM +=
-      "<form><label for='nev'>név</label><div class='mb-3 mt-3'><input type='text' class='form-control' id='TN' placeholder='név' name='TN'></div><label for='kor'>kor</label><div class='mb-3 mt-3'><input type='text' class='form-control' id='TN' placeholder='kor' name='TN'></div><label for='fajta'>fajta</label><div class='mb-3 mt-3'><input type='text' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' class='kuld'>Küld</button></form>";
+      "<form><label for='nev'>név</label><div class='mb-3 mt-3'><input type='text' id='nev' class='form-control' id='TN' placeholder='név' name='TN'></div><label for='kor'>kor</label><div class='mb-3 mt-3'><input type='text' id='kor' class='form-control' id='TN' placeholder='kor' name='TN'></div><label for='fajta'>fajta</label><div class='mb-3 mt-3'><input type='text' id='fajta' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' class='kuld'>Küld</button></form>";
     ASIDE.append(ELEM);
     GOMB.attr("class", "bezar");
     GOMB.html("Bezár");
@@ -73,7 +79,27 @@ function kattintas(ASIDE) {
       ASIDE.html(ELEM);
     });
     $(".kuld").click(function () {
-      console.log("Hallo");
+      var nev = $("#nev").val();
+      var kor = $("#kor").val();
+      var fajta = $("#fajta").val();
+      adat[0] = nev;
+      adat[1] = kor;
+      adat[2] = fajta;
+
+      let txt = "";
+      txt +=
+      "<tr><td>" +
+      adat[0] +
+      "</td><td>" +
+      adat[1] +
+      "</td><td>" +
+      adat[2] +
+      "</td><td>" +
+      "<button type='button' class='xuj'>X</button></tr>";
+    
+      const ARTICLEBODY = $("article table tbody");
+      ARTICLEBODY.append(txt);
+    
     });
   });
 }
@@ -84,4 +110,13 @@ function section() {
   elem +=
     "<form class='section'><div><input type='text' class='form-control' id='TN' placeholder='név' name='TN'></div><div><input type='text' class='form-control' id='TN' placeholder='pl.: >12' name='TN'></div><div><input type='text' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' class='gomb'>Új elem</button></form>";
   SECTION.append(elem);
+}
+
+function xkattintas(txt) {
+  for (let index = 0; index < txt.length; index++) {
+    const x = $(".x" + index);
+    $(".x" + index).click(function () {
+      console.log("x");
+    });
+  }
 }
