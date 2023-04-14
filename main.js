@@ -77,9 +77,25 @@ function elemkattintas(ASIDE, KUTYAK) {
     ASIDE.html(ELEM);
     GOMB.attr("class", "bezar");
     GOMB.html("Bezár");
-  });
 
-  
+    $(".bezar").click(function () {
+      ELEM = "";
+      GOMB.attr("class", "gomb");
+      GOMB.html("Új elem");
+      ASIDE.html(ELEM);
+    });
+    $(".kuld").click(function () {
+      var neve = $("#nev").val();
+      var kora = $("#kor").val();
+      var fajtaja = $("#fajta").val();
+      let index = KUTYAK.length;
+      KUTYAK[index] = { nev: neve, kor: kora, fajta: fajtaja };
+      console.log(KUTYAK);
+      const ARTICLEBODYTR = $("article table tbody tr");
+      ARTICLEBODYTR.remove();
+      init();
+    });
+  });
 }
 
 function section() {
@@ -100,23 +116,3 @@ function xkattintas(KUTYAK) {
     });
   }
 }
-
-/*
-$(".bezar").click(function () {
-  ELEM = "";
-  GOMB.attr("class", "gomb");
-  GOMB.html("Új elem");
-  ASIDE.html(ELEM);
-});
-$(".kuld").click(function () {
-  var neve = $("#nev").val();
-  var kora = $("#kor").val();
-  var fajtaja = $("#fajta").val();
-  let index = KUTYAK.length;
-  KUTYAK[index] = { nev: neve, kor: kora, fajta: fajtaja };
-  console.log(KUTYAK);
-  const ARTICLEBODYTR = $("article table tbody tr");
-  ARTICLEBODYTR.remove();
-  osszealit(KUTYAK);
-});
-*/
