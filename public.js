@@ -19,14 +19,21 @@ const KUTYAK = [
   });
   function init() {
     const ARTICLE = $("article");
-    ARTICLE.html("<table></table>");
-    const ARTICLEELEM = $("article table");
-    ARTICLEELEM.html("<thead></thead><tbody></tbody>");
-    osszealit(KUTYAK);
+    const teszt = $("#test");
+    console.log(teszt);
+    let txt = osszealit(KUTYAK);
+    teszt.append(txt);
   }
 
   function osszealit(KUTYAK){
-    
+    let txt = '';
+    for (let index = 0; index < KUTYAK.length; index++) {
+      txt += '<div class="card col-lg-3 col-md-4 col-sm-6"><div class="card-header"><h2>'+
+      KUTYAK[index].nev+'</h2></div><div class="card-body"><p>Kor: '+
+      KUTYAK[index].kor+'</p><p>Fajta: '+
+      KUTYAK[index].fajta+'</div><div class="card-footer"><button>Mutat</button><button>Kosárba</button></div></div>';
+    }
+    return txt;
   }
 
   
