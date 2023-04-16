@@ -32,3 +32,6 @@ li a:hover:not(.active) {
 article {
   margin-top: 10px;
 }
+#gomb{
+  float: left;
+}
