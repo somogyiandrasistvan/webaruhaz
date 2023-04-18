@@ -48,7 +48,6 @@ function osszealit(KUTYAK) {
       index +
       "'>X</button></tr>";
   }
-  console.log(txt);
 
   return txt;
 }
@@ -68,8 +67,6 @@ function nav() {
 
 function elemkattintas(ASIDE, KUTYAK) {
   const GOMB = $("section .gomb");
-  console.log(GOMB);
-
   $(".gomb").click(function () {
     let ELEM =
       "<form><label for='nev'>név</label><div class='mb-3 mt-3'><input type='text' id='nev' class='form-control' id='TN' placeholder='név' name='TN'></div><label for='kor'>kor</label><div class='mb-3 mt-3'><input type='text' id='kor' class='form-control' id='TN' placeholder='kor' name='TN'></div><label for='fajta'>fajta</label><div class='mb-3 mt-3'><input type='text' id='fajta' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' class='kuld'>Küld</button></form>";
@@ -78,23 +75,8 @@ function elemkattintas(ASIDE, KUTYAK) {
     GOMB.attr("class", "bezar");
     GOMB.html("Bezár");
 
-    $(".bezar").click(function () {
-      ELEM = "";
-      GOMB.attr("class", "gomb");
-      GOMB.html("Új elem");
-      ASIDE.html(ELEM);
-    });
-    $(".kuld").click(function () {
-      var neve = $("#nev").val();
-      var kora = $("#kor").val();
-      var fajtaja = $("#fajta").val();
-      let index = KUTYAK.length;
-      KUTYAK[index] = { nev: neve, kor: kora, fajta: fajtaja };
-      console.log(KUTYAK);
-      const ARTICLEBODYTR = $("article table tbody tr");
-      ARTICLEBODYTR.remove();
-      init();
-    });
+    bezar(ELEM, GOMB, ASIDE);
+    kuld(KUTYAK);
   });
 }
 
@@ -115,4 +97,26 @@ function xkattintas(KUTYAK) {
       init();
     });
   }
+}
+function bezar(ELEM, GOMB, ASIDE){
+  $(".bezar").click(function () {
+    ELEM = "";
+    GOMB.attr("class", "gomb");
+    GOMB.html("Új elem");
+    ASIDE.html(ELEM);
+    elemkattintas(ASIDE, KUTYAK)
+  });
+}
+
+function kuld(KUTYAK){
+  $(".kuld").click(function () {
+    var neve = $("#nev").val();
+    var kora = $("#kor").val();
+    var fajtaja = $("#fajta").val();
+    let index = KUTYAK.length;
+    KUTYAK[index] = { nev: neve, kor: kora, fajta: fajtaja };
+    const ARTICLEBODYTR = $("article table tbody tr");
+    ARTICLEBODYTR.remove();
+    init();
+  });
 }

@@ -35,3 +35,17 @@ article {
 #gomb{
   float: left;
 }
+#test3{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top:30px;
+}
+#kosar{
+  float:right;
+  float:top;
+}
+#gomb3{
+  float:right
+}

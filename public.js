@@ -13,9 +13,7 @@ $(function () {
   HEADER.append("<h1>adatok listázása</h1>");
 
   init();
-
 });
-
 
 function init() {
   const NAV = $("nav");
@@ -23,54 +21,118 @@ function init() {
   let txt = osszealit(KUTYAK);
   ARTICLE.append(txt);
   let menu = nav();
-  NAV.append(menu);;
+  NAV.append(menu);
   mutat(KUTYAK);
-
+  kosar(KUTYAK, menu);
 }
 
 function osszealit(KUTYAK) {
   let txt = '<div id = "test" class="container-fluid row">';
   for (let index = 0; index < KUTYAK.length; index++) {
-    txt += '<div id=test2 class="card col-lg-3 col-md-4 col-sm-6"><div class="card-header"><h2>' +
-      KUTYAK[index].nev + '</h2></div><div class="card-body"><p>Kor: ' +
-      KUTYAK[index].kor + '</p><p>Fajta: ' +
-      KUTYAK[index].fajta + '</div><div class="card-footer"><button type="button" class="mutat'+index+'">Mutat</button><button>Kosárba</button></div></div>';
+    txt +=
+      '<div id=test2 class="card col-lg-3 col-md-4 col-sm-6"><div class="card-header"><h2>' +
+      KUTYAK[index].nev +
+      '</h2></div><div class="card-body"><p>Kor: ' +
+      KUTYAK[index].kor +
+      "</p><p>Fajta: " +
+      KUTYAK[index].fajta +
+      '</div><div class="card-footer"><button type="button" class="mutat' +
+      index +
+      '">Mutat</button><button>Kosárba</button></div></div>';
   }
   txt += "</div>";
   return txt;
 }
 
-
 function nav() {
   let nav = "";
   nav +=
-    "<ul><li><a class='active' href = 'public.html'>Kutyák adatainak megtekintése</a></li><li><a href='index.html'>Admin felüet</a></li></ul>";
+    "<div id=nav><ul><li><a class='active' href = 'public.html'>Kutyák adatainak megtekintése</a></li><li><a href='index.html'>Admin felüet</a></li><button id=kosar>Kosár</button></ul></div>";
   return nav;
 }
 
 function mutat(KUTYAK) {
   const ASIDE = $("ASIDE");
   for (let index = 0; index < KUTYAK.length; index++) {
-    $(".mutat"+index).click(function () {
+    $(".mutat" + index).click(function () {
       let txt = "";
       const NAV = $("nav ul");
       const ARTICLE = $("#test");
       NAV.remove();
       ARTICLE.remove();
-      txt += '<div id=test2 class="card" style="height:800px"><button id="gomb" class = "button col-lg-1 col-md-1 col-sm-1"><-</button><div class="card col-lg-11 col-md-11 col-sm-11"><div class="card-header"><h2>' +
-      KUTYAK[index].nev + '</h2></div><div class="card-body"><p>Kor: ' +
-      KUTYAK[index].kor + '</p><p>Fajta: ' +
-      KUTYAK[index].fajta +'</div>';
+      txt +=
+        '<div id=fo><button id="gomb3" class = "button col-lg-100 col-md-100 col-sm-100">X</button><div id=test3 class="card" style="height:800px"><button id="bal" class = "button col-lg-100 col-md-100 col-sm-100"><-</button><div class="card col-lg-9 col-md-9 col-sm-9"><div class="card-header"><h2>' +
+        KUTYAK[index].nev +
+        '</h2></div><div class="card-body"><p>Kor: ' +
+        KUTYAK[index].kor +
+        "</p><p>Fajta: " +
+        KUTYAK[index].fajta +
+        '</div></div><button id="jobb" class = "button col-lg-100 col-md-100 col-sm-100">-></button></div>';
       ASIDE.append(txt);
-      $("#gomb").click(function (){
-        const test = $("#test2");
-        test.remove();
-        init();
-      })
+      xgomb();
+      jobbgomb(txt, ASIDE, index);
+      balgomb(txt, ASIDE, index);
     });
   }
 }
+function xgomb() {
+  $("#gomb3").click(function () {
+    const test = $("#fo");
+    test.remove();
+    init();
+  });
+}
+function jobbgomb(txt, ASIDE, index) {
+  $("#jobb").click(function () {
+    index++;
+    if (index == 4){
+      index = 0;
+    }
+    console.log(index);
+    const test2 = $("#fo");
+    test2.remove();
+    txt = "";
+    txt +=
+      '<div id=fo><button id="gomb3" class = "button col-lg-100 col-md-100 col-sm-100">X</button><div id=test3 class="card" style="height:800px"><button id="bal" class = "button col-lg-100 col-md-100 col-sm-100"><-</button><div class="card col-lg-9 col-md-9 col-sm-9"><div class="card-header"><h2>' +
+      KUTYAK[index].nev +
+      '</h2></div><div class="card-body"><p>Kor: ' +
+      KUTYAK[index].kor +
+      "</p><p>Fajta: " +
+      KUTYAK[index].fajta +
+      '</div></div><button id="jobb" class = "button col-lg-100 col-md-100 col-sm-100">-></button>';
+    ASIDE.append(txt);
+    jobbgomb(txt, ASIDE, index);
+    balgomb(txt, ASIDE, index);
+    xgomb();
+  });
+}
 
+function balgomb(txt, ASIDE, index) {
+  $("#bal").click(function () {
+    index--;
+    if (index == -1) {
+      index = 3;
+    }
+    console.log(index);
+    const test2 = $("#fo");
+    test2.remove();
+    txt = "";
+    txt +=
+      '<div id=fo><button id="gomb3" class = "button col-lg-100 col-md-100 col-sm-100">X</button><div id=test3 class="card" style="height:800px"><button id="bal" class = "button col-lg-100 col-md-100 col-sm-100"><-</button><div class="card col-lg-9 col-md-9 col-sm-9"><div class="card-header"><h2>' +
+      KUTYAK[index].nev +
+      '</h2></div><div class="card-body"><p>Kor: ' +
+      KUTYAK[index].kor +
+      "</p><p>Fajta: " +
+      KUTYAK[index].fajta +
+      '</div></div><button id="jobb" class = "button col-lg-100 col-md-100 col-sm-100">-></button>';
+    ASIDE.append(txt);
+    balgomb(txt, ASIDE, index);
+    jobbgomb(txt, ASIDE, index);
+    xgomb();
+  });
+}
 
-
+function kosar(KUTYAK){
+  
+}
 
