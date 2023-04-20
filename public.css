@@ -43,10 +43,16 @@ article {
   justify-content: center;
   padding-top:30px;
 }
-#kosar{
-  float:right;
-  float:top;
-}
 #gomb3{
   float:right
+}
+
+@media only screen and (max-width: 800px) {
+  li{
+    padding:10px;
+    display: grid;
+  }
+  header{
+    text-align: center;
+  }
 }

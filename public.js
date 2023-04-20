@@ -42,7 +42,7 @@ function osszealit(KUTYAK) {
 function nav() {
   let nav = "";
   nav +=
-    "<div id=nav><ul><li><a class='active' href = 'public.html'>Kutyák adatainak megtekintése</a></li><li><a href='index.html'>Admin felüet</a></li><button class='btn btn-primary' id='kosar'>Kosár</button></ul></div>";
+    "<div id=nav><ul><li><a class='active' href = 'public.html'>Kutyák adatainak megtekintése</a></li><li><a href='index.html'>Admin felüet</a></li></ul></div>";
   return nav;
 }
 
