@@ -11,6 +11,7 @@ $(function () {
   NAV.append(menu);
   section();
   elemkattintas(ASIDE, KUTYAK);
+  keres(KUTYAK);
 });
 function init() {
   const ujosszealit = osszealit(KUTYAK);
@@ -25,9 +26,10 @@ function init() {
   ARTICLEHEAD.append(head);
   ARTICLEBODY.append(ujosszealit);
   xkattintas(KUTYAK);
-  console.log(KUTYAK);
 }
+
 function osszealit(KUTYAK) {
+  console.log(KUTYAK);
   let txt = "";
   for (let index = 0; index < KUTYAK.length; index++) {
     txt +=
@@ -41,13 +43,14 @@ function osszealit(KUTYAK) {
       index +
       "'>X</button></tr>";
   }
-
+  console.log(txt);
   return txt;
 }
 
 function th() {
   let txt = "";
-  txt += '<tr><th>nev<form action="/action_page.php"><div class="form-floating mb-3 mt-3"><select class="form-select" id="sel1" name="sellist"><option>A-Z</option><option>Z-A</option></select><label for="sel1" class="form-label"></label></div><button type="submit" class="btn btn-primary">rendezes</button></form></div></th><th>kor<form action="/action_page.php"><div class="form-floating mb-3 mt-3"><select class="form-select" id="sel1" name="sellist"><option>növekvő</option><option>csökkenő</option></select><label for="sel1" class="form-label"></label></div><button type="submit" class="btn btn-primary">rendezes</button></form></th><th>faj<form action="/action_page.php"><div class="form-floating mb-3 mt-3"><select class="form-select" id="sel1" name="sellist"><option>A-Z</option><option>Z-A</option></select><label for="sel1" class="form-label"></label></div><button type="submit" class="btn btn-primary">rendezes</button></form></th><th></th></tr>';
+  txt +=
+    '<tr><th>nev<form action="/action_page.php"><div class="form-floating mb-3 mt-3"><select class="form-select" id="sel1" name="sellist"><option>A-Z</option><option>Z-A</option></select><label for="sel1" class="form-label"></label></div><button type="submit" class="btn btn-primary">rendezes</button></form></div></th><th>kor<form action="/action_page.php"><div class="form-floating mb-3 mt-3"><select class="form-select" id="sel1" name="sellist"><option>növekvő</option><option>csökkenő</option></select><label for="sel1" class="form-label"></label></div><button type="submit" class="btn btn-primary">rendezes</button></form></th><th>faj<form action="/action_page.php"><div class="form-floating mb-3 mt-3"><select class="form-select" id="sel1" name="sellist"><option>A-Z</option><option>Z-A</option></select><label for="sel1" class="form-label"></label></div><button type="submit" class="btn btn-primary">rendezes</button></form></th><th></th></tr>';
   return txt;
 }
 
@@ -77,7 +80,7 @@ function section() {
   let elem = "";
   const SECTION = $("section");
   elem +=
-    "<form class='section'><button id=keres>Keresés</button><div><input type='text' class='form-control' id='TN' placeholder='név' name='TN'></div><div><input type='text' class='form-control' id='TN' placeholder='pl.: >12' name='TN'></div><div><input type='text' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' class='gomb'>Új elem</button></form>";
+    "<form class='section'><button type='button' class=keres>Keresés</button><div><input type='text' id=name class='form-control' id='TN' placeholder='név' name='TN'></div><div><input type='text' id=age class='form-control' id='TN' placeholder='pl.: >12' name='TN'></div><div><input type='text' id=type class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' class='gomb'>Új elem</button></form>";
   SECTION.append(elem);
 }
 
@@ -107,9 +110,30 @@ function kuld(KUTYAK) {
     var kora = $("#kor").val();
     var fajtaja = $("#fajta").val();
     let index = KUTYAK.length;
-    let KUTYA = (KUTYAK[index] = { nev: neve, kor: kora, fajta: fajtaja });
+    KUTYAK[index] = { nev: neve, kor: kora, fajta: fajtaja };
     const ARTICLEBODYTR = $("article table tbody tr");
     ARTICLEBODYTR.remove();
     init();
+  });
+}
+
+function keres(KUTYAK) {
+  let fajta;
+  let neve;
+  let kora;
+  $(".keres").click(function () {
+    neve = $("#name").val();
+    kora = $("#age").val();
+    fajta = $("#type").val();
+    for (let index = 0; index < KUTYAK.length; index++) {
+      let kutya = KUTYAK[index].nev.includes(neve);
+      if(kutya == true){
+        let txt = osszealit(KUTYAK[index]);
+        const ARTICLEBODYTR = $("article table tbody tr");
+        ARTICLEBODYTR.remove();
+        const ARTICLEBODY = $("article table tbody");
+        ARTICLEBODY.append(txt);
+      }
+    }
   });
 }

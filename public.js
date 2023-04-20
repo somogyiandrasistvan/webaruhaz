@@ -134,7 +134,7 @@ function kosar() {
     modal.style.display = "block";
   });
 
-  span.onclick = function() {
+  span.onclick = function () {
     modal.style.display = "none";
-  }
+  };
 }
