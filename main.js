@@ -12,12 +12,15 @@ $(function () {
   section();
   elemkattintas(ASIDE, KUTYAK);
   keres(KUTYAK);
+  rendezes1(KUTYAK);
+  rendezes2(KUTYAK);
+  rendezes3(KUTYAK);
 });
 function init() {
   const ujosszealit = osszealit(KUTYAK);
   const ARTICLE = $("article");
 
-  ARTICLE.html("<table></table>");
+  ARTICLE.html("<table class='table table-bordered table-striped'></table>");
   const ARTICLEELEM = $("article table");
   ARTICLEELEM.html("<thead></thead><tbody></tbody>");
   const ARTICLEHEAD = $("article table thead");
@@ -26,7 +29,6 @@ function init() {
   ARTICLEHEAD.append(head);
   ARTICLEBODY.append(ujosszealit);
   xkattintas(KUTYAK);
-  rendezes(KUTYAK);
 }
 
 function osszealit(KUTYAK) {
@@ -39,7 +41,7 @@ function osszealit(KUTYAK) {
       KUTYAK[index].kor +
       "</td><td>" +
       KUTYAK[index].fajta +
-      "</td><td><button type='button' class='x" +
+      "</td><td><button class='btn text-danger' type='button' id='x" +
       index +
       "'>X</button></tr>";
   }
@@ -49,7 +51,7 @@ function osszealit(KUTYAK) {
 function th() {
   let txt = "";
   txt +=
-    '<tr><th>nev<form action="/action_page.php"><div class="form-floating mb-3 mt-3"><select class="form-select" id="sel1" name="sellist"><option>A-Z</option><option>Z-A</option></select><label for="sel1" class="form-label"></label></div><button type="submit" class="btn btn-primary">rendezes</button></form></div></th><th>kor<form action="/action_page.php"><div class="form-floating mb-3 mt-3"><select class="form-select" id="sel1" name="sellist"><option>növekvő</option><option>csökkenő</option></select><label for="sel1" class="form-label"></label></div><button type="submit" class="btn btn-primary">rendezes</button></form></th><th>faj<form action="/action_page.php"><div class="form-floating mb-3 mt-3"><select class="form-select" id="sel1" name="sellist"><option>A-Z</option><option>Z-A</option></select><label for="sel1" class="form-label"></label></div><button type="submit" class="btn btn-primary">rendezes</button></form></th><th></th></tr>';
+    '<tr class="table table-dark"><th>nev <button id="le" class="btn btn-outline-secondary" >▼</button></th><th>kor <button class="btn btn-outline-secondary" id="le2" >▼</button></th><th>faj <button class="btn btn-outline-secondary" id="le3" >▼</button></th><th></th></tr>';
   return txt;
 }
 
@@ -61,13 +63,13 @@ function nav() {
 }
 
 function elemkattintas(ASIDE, KUTYAK) {
-  const GOMB = $("section .gomb");
-  $(".gomb").click(function () {
+  const GOMB = $("section #gomb");
+  $("#gomb").click(function () {
     let ELEM =
-      "<form><label for='nev'>név</label><div class='mb-3 mt-3'><input type='text' id='nev' class='form-control' id='TN' placeholder='név' name='TN'></div><label for='kor'>kor</label><div class='mb-3 mt-3'><input type='text' id='kor' class='form-control' id='TN' placeholder='kor' name='TN'></div><label for='fajta'>fajta</label><div class='mb-3 mt-3'><input type='text' id='fajta' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' class='kuld'>Küld</button></form>";
+      "<div id=test3 class='card' style='height:340px'><form><label for='nev'>név</label><div class='mb-3 mt-3'><input type='text' id='nev' class='form-control' id='TN' placeholder='név' name='TN'></div><label for='kor'>kor</label><div class='mb-3 mt-3'><input type='text' id='kor' class='form-control' id='TN' placeholder='kor' name='TN'></div><label for='fajta'>fajta</label><div class='mb-3 mt-3'><input type='text' id='fajta' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' id='kuld' class='btn btn-primary' >Küld</button></form>";
 
     ASIDE.html(ELEM);
-    GOMB.attr("class", "bezar");
+    GOMB.attr("id", "bezar");
     GOMB.html("Bezár");
 
     bezar(ELEM, GOMB, ASIDE);
@@ -79,13 +81,13 @@ function section() {
   let elem = "";
   const SECTION = $("section");
   elem +=
-    "<form class='section'><button type='button' class=keres>Keresés</button><div><input type='text' id=name class='form-control' id='TN' placeholder='név' name='TN'></div><div><input type='text' id=age class='form-control' id='TN' placeholder='pl.: >12' name='TN'></div><div><input type='text' id=type class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' class='gomb'>Új elem</button></form>";
+    "<form class='section'><button type='button' id=keres class='btn btn-primary'>Keresés</button><div><input type='text' id=name class='form-control' id='TN' placeholder='név' name='TN'></div><div><input type='text' id=age class='form-control' id='TN' placeholder='pl.: >12' name='TN'></div><div><input type='text' id=type class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' id='gomb' class='btn btn-primary'>Új elem</button></form>";
   SECTION.append(elem);
 }
 
 function xkattintas(KUTYAK) {
   for (let index = 0; index < KUTYAK.length; index++) {
-    $(".x" + index).click(function () {
+    $("#x" + index).click(function () {
       KUTYAK.splice(index, 1);
       const ARTICLEBODYTR = $("article table tbody tr");
       ARTICLEBODYTR.remove();
@@ -94,9 +96,9 @@ function xkattintas(KUTYAK) {
   }
 }
 function bezar(ELEM, GOMB, ASIDE) {
-  $(".bezar").click(function () {
+  $("#bezar").click(function () {
     ELEM = "";
-    GOMB.attr("class", "gomb");
+    GOMB.attr("id", "gomb");
     GOMB.html("Új elem");
     ASIDE.html(ELEM);
     elemkattintas(ASIDE, KUTYAK);
@@ -104,7 +106,7 @@ function bezar(ELEM, GOMB, ASIDE) {
 }
 
 function kuld(KUTYAK) {
-  $(".kuld").click(function () {
+  $("#kuld").click(function () {
     var neve = $("#nev").val();
     var kora = $("#kor").val();
     var fajtaja = $("#fajta").val();
@@ -122,9 +124,9 @@ function keres(KUTYAK) {
   let fajta;
   let neve;
   let kora;
-  const KERES = $(".keres");
+  const KERES = $("#keres");
   $(KERES).click(function () {
-    KERES.attr("class", "vissza");
+    KERES.attr("id", "vissza");
     KERES.html("Vissza");
     neve = $("#name").val();
     kora = $("#age").val();
@@ -188,9 +190,9 @@ function keres(KUTYAK) {
 }
 
 function vissza(KUTYAK) {
-  const VISSZA = $(".vissza");
+  const VISSZA = $("#vissza");
   $(VISSZA).click(function () {
-    VISSZA.attr("class", "keres");
+    VISSZA.attr("id", "keres");
     VISSZA.html("Keresés");
     const ARTICLEBODYTR = $("article table tbody tr");
     ARTICLEBODYTR.remove();
@@ -199,6 +201,65 @@ function vissza(KUTYAK) {
   });
 }
 
-function rendezes(KUTYAK){
-  
+function rendezes1(KUTYAK) {
+  const LE = $("#le");
+  $(LE).click(function () {
+    let adat = [];
+    for (let index = 0; index < KUTYAK.length; index++) {
+      for (let i = index + 1; i < KUTYAK.length; i++) {
+        if (KUTYAK[index].nev > KUTYAK[i].nev) {
+          let adat = KUTYAK[index];
+          KUTYAK[index] = KUTYAK[i];
+          KUTYAK[i] = adat;
+
+        }
+      }
+    }
+    const ARTICLEBODYTR = $("article table tbody tr");
+    ARTICLEBODYTR.remove();
+    osszealit(KUTYAK);
+    init();
+  });
+}
+
+function rendezes2(KUTYAK) {
+  const LE = $("#le2");
+  $(LE).click(function () {
+    let adat = [];
+    for (let index = 0; index < KUTYAK.length; index++) {
+      for (let i = index + 1; i < KUTYAK.length; i++) {
+        if (KUTYAK[index].kor > KUTYAK[i].kor) {
+          let adat = KUTYAK[index];
+          KUTYAK[index] = KUTYAK[i];
+          KUTYAK[i] = adat;
+
+        }
+      }
+    }
+    const ARTICLEBODYTR = $("article table tbody tr");
+    ARTICLEBODYTR.remove();
+    osszealit(KUTYAK);
+    init();
+  });
+}
+
+function rendezes3(KUTYAK) {
+  const LE = $("#le3");
+  $(LE).click(function () {
+    let adat = [];
+    for (let index = 0; index < KUTYAK.length; index++) {
+      for (let i = index + 1; i < KUTYAK.length; i++) {
+        if (KUTYAK[index].fajta > KUTYAK[i].fajta) {
+          let adat = KUTYAK[index];
+          KUTYAK[index] = KUTYAK[i];
+          KUTYAK[i] = adat;
+
+        }
+      }
+    }
+    const ARTICLEBODYTR = $("article table tbody tr");
+    ARTICLEBODYTR.remove();
+    osszealit(KUTYAK);
+    init();
+  });
 }
