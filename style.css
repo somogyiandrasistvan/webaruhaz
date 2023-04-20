@@ -58,3 +58,7 @@ article{
     margin-top: 10px;
     border-top: 1px solid grey;
 }
+
+select{
+  margin-bottom: 5px;
+}

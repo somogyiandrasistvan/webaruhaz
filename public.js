@@ -1,17 +1,10 @@
-const KUTYAK = [
-  { nev: "bodri", kor: 10, fajta: "puli" },
-  { nev: "vuksi", kor: 11, fajta: "kuvasz" },
-  { nev: "blacki", kor: 3, fajta: "svájcijuhász" },
-  { nev: "pergi", kor: 3, fajta: "svájcijuhász" },
-];
-
+import { KUTYAK } from "./adat.js";
 $(function () {
   const FOOTER = $("footer");
   const HEADER = $("header");
   const NAV = $("nav");
   FOOTER.append("<p>Somogyi András</p>");
   HEADER.append("<h1>adatok listázása</h1>");
-
   init();
 });
 
@@ -23,7 +16,7 @@ function init() {
   let menu = nav();
   NAV.append(menu);
   mutat(KUTYAK);
-  kosar(KUTYAK, menu);
+  kosar();
 }
 
 function osszealit(KUTYAK) {
@@ -38,7 +31,9 @@ function osszealit(KUTYAK) {
       KUTYAK[index].fajta +
       '</div><div class="card-footer"><button type="button" class="mutat' +
       index +
-      '">Mutat</button><button>Kosárba</button></div></div>';
+      '">Mutat</button><button id="kosarba' +
+      index +
+      '">Kosárba</button></div></div><div id="myModal" class="modal" width="800px"><div class="modal-content"><div class="modal-header"><span class="close">&times;</span><h2>Kosár</h2></div><div class="modal-body"><p>Some text in the Modal Body</p><p>Some other text...</p></div><div class="modal-footer"><h3>Modal Footer</h3></div></div></div>';
   }
   txt += "</div>";
   return txt;
@@ -47,7 +42,7 @@ function osszealit(KUTYAK) {
 function nav() {
   let nav = "";
   nav +=
-    "<div id=nav><ul><li><a class='active' href = 'public.html'>Kutyák adatainak megtekintése</a></li><li><a href='index.html'>Admin felüet</a></li><button id=kosar>Kosár</button></ul></div>";
+    "<div id=nav><ul><li><a class='active' href = 'public.html'>Kutyák adatainak megtekintése</a></li><li><a href='index.html'>Admin felüet</a></li><button id='kosar'>Kosár</button></ul></div>";
   return nav;
 }
 
@@ -85,7 +80,7 @@ function xgomb() {
 function jobbgomb(txt, ASIDE, index) {
   $("#jobb").click(function () {
     index++;
-    if (index == 4){
+    if (index == 4) {
       index = 0;
     }
     console.log(index);
@@ -132,7 +127,14 @@ function balgomb(txt, ASIDE, index) {
   });
 }
 
-function kosar(KUTYAK){
-  
-}
+function kosar() {
+  const modal = document.getElementById("myModal");
+  const span = $(".close")[0];
+  $("#kosar").click(function () {
+    modal.style.display = "block";
+  });
 
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+}
