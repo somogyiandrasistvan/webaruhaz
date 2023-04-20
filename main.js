@@ -26,10 +26,10 @@ function init() {
   ARTICLEHEAD.append(head);
   ARTICLEBODY.append(ujosszealit);
   xkattintas(KUTYAK);
+  rendezes(KUTYAK);
 }
 
 function osszealit(KUTYAK) {
-  console.log(KUTYAK);
   let txt = "";
   for (let index = 0; index < KUTYAK.length; index++) {
     txt +=
@@ -43,7 +43,6 @@ function osszealit(KUTYAK) {
       index +
       "'>X</button></tr>";
   }
-  console.log(txt);
   return txt;
 }
 
@@ -118,22 +117,88 @@ function kuld(KUTYAK) {
 }
 
 function keres(KUTYAK) {
+  let db = 0;
+  let adat = [];
   let fajta;
   let neve;
   let kora;
-  $(".keres").click(function () {
+  const KERES = $(".keres");
+  $(KERES).click(function () {
+    KERES.attr("class", "vissza");
+    KERES.html("Vissza");
     neve = $("#name").val();
     kora = $("#age").val();
     fajta = $("#type").val();
-    for (let index = 0; index < KUTYAK.length; index++) {
-      let kutya = KUTYAK[index].nev.includes(neve);
-      if(kutya == true){
-        let txt = osszealit(KUTYAK[index]);
-        const ARTICLEBODYTR = $("article table tbody tr");
-        ARTICLEBODYTR.remove();
-        const ARTICLEBODY = $("article table tbody");
-        ARTICLEBODY.append(txt);
+    if (neve.length >= 1) {
+      for (let index = 0; index < KUTYAK.length; index++) {
+        let kutya = KUTYAK[index].nev.includes(neve);
+        if (kutya == true) {
+          adat[db] = KUTYAK[index];
+          db++;
+        }
       }
     }
+    if (kora.length >= 1) {
+      if (kora[0] == ">") {
+        let koraSzoveg = kora.toString();
+        koraSzoveg = koraSzoveg.slice(1);
+        let szam = parseInt(koraSzoveg);
+        for (let index = 0; index < KUTYAK.length; index++) {
+          if (KUTYAK[index].kor < szam) {
+            adat[db] = KUTYAK[index];
+            db++;
+          }
+        }
+      } else if (kora[0] == "<") {
+        let koraSzoveg = kora.toString();
+        koraSzoveg = koraSzoveg.slice(1);
+        let szam = parseInt(koraSzoveg);
+        for (let index = 0; index < KUTYAK.length; index++) {
+          if (KUTYAK[index].kor > szam) {
+            adat[db] = KUTYAK[index];
+            db++;
+          }
+        }
+      } else {
+        for (let index = 0; index < KUTYAK.length; index++) {
+          if (KUTYAK[index].kor == kora) {
+            adat[db] = KUTYAK[index];
+            db++;
+          }
+        }
+      }
+    }
+    if (fajta.length >= 1) {
+      for (let index = 0; index < KUTYAK.length; index++) {
+        let kutya = KUTYAK[index].fajta.includes(fajta);
+        if (kutya == true) {
+          adat[db] = KUTYAK[index];
+          db++;
+        }
+      }
+    }
+
+    let txt = osszealit(adat);
+    const ARTICLEBODYTR = $("article table tbody tr");
+    ARTICLEBODYTR.remove();
+    const ARTICLEBODY = $("article table tbody");
+    ARTICLEBODY.append(txt);
+    vissza(KUTYAK);
   });
+}
+
+function vissza(KUTYAK) {
+  const VISSZA = $(".vissza");
+  $(VISSZA).click(function () {
+    VISSZA.attr("class", "keres");
+    VISSZA.html("Keresés");
+    const ARTICLEBODYTR = $("article table tbody tr");
+    ARTICLEBODYTR.remove();
+    init();
+    keres(KUTYAK);
+  });
+}
+
+function rendezes(KUTYAK){
+  
 }
