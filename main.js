@@ -66,7 +66,7 @@ function elemkattintas(ASIDE, KUTYAK) {
   const GOMB = $("section #gomb");
   $("#gomb").click(function () {
     let ELEM =
-      "<div id=test3 class='card' style='height:340px'><form><label for='nev'>név</label><div class='mb-3 mt-3'><input type='text' id='nev' class='form-control' id='TN' placeholder='név' name='TN'></div><label for='kor'>kor</label><div class='mb-3 mt-3'><input type='text' id='kor' class='form-control' id='TN' placeholder='kor' name='TN'></div><label for='fajta'>fajta</label><div class='mb-3 mt-3'><input type='text' id='fajta' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' id='kuld' class='btn btn-primary' >Küld</button></form>";
+      "<div class='card' style='height:340px'><form><label for='nev'>név</label><div class='mb-3 mt-3'><input type='text' id='nev' class='form-control' id='TN' placeholder='név' name='TN'></div><label for='kor'>kor</label><div class='mb-3 mt-3'><input type='text' id='kor' class='form-control' id='TN' placeholder='kor' name='TN'></div><label for='fajta'>fajta</label><div class='mb-3 mt-3'><input type='text' id='fajta' class='form-control' id='TN' placeholder='fajta' name='TN'></div><button type='button' id='kuld' class='btn btn-primary' >Küld</button></form>";
 
     ASIDE.html(ELEM);
     GOMB.attr("id", "bezar");
@@ -219,6 +219,8 @@ function rendezes1(KUTYAK) {
     ARTICLEBODYTR.remove();
     osszealit(KUTYAK);
     init();
+    rendezes2(KUTYAK);
+    rendezes3(KUTYAK);
   });
 }
 
@@ -232,7 +234,6 @@ function rendezes2(KUTYAK) {
           let adat = KUTYAK[index];
           KUTYAK[index] = KUTYAK[i];
           KUTYAK[i] = adat;
-
         }
       }
     }
@@ -240,6 +241,8 @@ function rendezes2(KUTYAK) {
     ARTICLEBODYTR.remove();
     osszealit(KUTYAK);
     init();
+    rendezes1(KUTYAK);
+    rendezes3(KUTYAK);
   });
 }
 
@@ -261,5 +264,7 @@ function rendezes3(KUTYAK) {
     ARTICLEBODYTR.remove();
     osszealit(KUTYAK);
     init();
+    rendezes1(KUTYAK);
+    rendezes2(KUTYAK);
   });
 }

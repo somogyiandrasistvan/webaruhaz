@@ -20,10 +20,10 @@ function init() {
 }
 
 function osszealit(KUTYAK) {
-  let txt = '<div id = "test" class="container-fluid row">';
+  let txt = '<div id = "txt" class="container-fluid row">';
   for (let index = 0; index < KUTYAK.length; index++) {
     txt +=
-      '<div id=test2 class="card col-lg-3 col-md-4 col-sm-6"><div class="card-header"><h2>' +
+      '<div id=txt2 class="card col-lg-3 col-md-4 col-sm-6"><div class="card-header"><h2>' +
       KUTYAK[index].nev +
       '</h2></div><div class="card-body"><p>Kor: ' +
       KUTYAK[index].kor +
@@ -52,11 +52,11 @@ function mutat(KUTYAK) {
     $("#mutat" + index).click(function () {
       let txt = "";
       const NAV = $("nav ul");
-      const ARTICLE = $("#test");
+      const ARTICLE = $("#txt");
       NAV.remove();
       ARTICLE.remove();
       txt +=
-        '<div id=fo><button class="btn btn-primary" id="gomb3" class = "button col-lg-100 col-md-100 col-sm-100">X</button><div id=test3 class="card" style="height:800px"><button class="btn btn-primary" id="bal" class = "button col-lg-100 col-md-100 col-sm-100"><-</button><div class="card col-lg-9 col-md-9 col-sm-9"><div class="card-header"><h2>' +
+        '<div id=fo><button class="btn btn-primary" id="gomb3" class = "button col-lg-100 col-md-100 col-sm-100">X</button><div id=txt3 class="card" style="height:800px"><button class="btn btn-primary" id="bal" class = "button col-lg-100 col-md-100 col-sm-100"><-</button><div class="card col-lg-9 col-md-9 col-sm-9"><div class="card-header"><h2>' +
         KUTYAK[index].nev +
         '</h2></div><div class="card-body"><p>Kor: ' +
         KUTYAK[index].kor +
@@ -72,8 +72,8 @@ function mutat(KUTYAK) {
 }
 function xgomb() {
   $("#gomb3").click(function () {
-    const test = $("#fo");
-    test.remove();
+    const FO = $("#fo");
+    FO.remove();
     init();
   });
 }
@@ -84,11 +84,11 @@ function jobbgomb(txt, ASIDE, index) {
       index = 0;
     }
     console.log(index);
-    const test2 = $("#fo");
-    test2.remove();
+    const FO = $("#fo");
+    FO.remove();
     txt = "";
     txt +=
-      '<div id=fo><button class="btn btn-primary" id="gomb3" class = "button col-lg-100 col-md-100 col-sm-100">X</button><div id=test3 class="card" style="height:800px"><button class="btn btn-primary" id="bal" class = "button col-lg-100 col-md-100 col-sm-100"><-</button><div class="card col-lg-9 col-md-9 col-sm-9"><div class="card-header"><h2>' +
+      '<div id=fo><button class="btn btn-primary" id="gomb3" class = "button col-lg-100 col-md-100 col-sm-100">X</button><div id=txt3 class="card" style="height:800px"><button class="btn btn-primary" id="bal" class = "button col-lg-100 col-md-100 col-sm-100"><-</button><div class="card col-lg-9 col-md-9 col-sm-9"><div class="card-header"><h2>' +
       KUTYAK[index].nev +
       '</h2></div><div class="card-body"><p>Kor: ' +
       KUTYAK[index].kor +
@@ -109,11 +109,11 @@ function balgomb(txt, ASIDE, index) {
       index = 3;
     }
     console.log(index);
-    const test2 = $("#fo");
-    test2.remove();
+    const FO = $("#fo");
+    FO.remove();
     txt = "";
     txt +=
-      '<div id=fo><button class="btn btn-primary" id="gomb3" class = "button col-lg-100 col-md-100 col-sm-100">X</button><div  id=test3 class="card" style="height:800px"><button class="btn btn-primary" id="bal" class = "button col-lg-100 col-md-100 col-sm-100"><-</button><div class="card col-lg-9 col-md-9 col-sm-9"><div class="card-header"><h2>' +
+      '<div id=fo><button class="btn btn-primary" id="gomb3" class = "button col-lg-100 col-md-100 col-sm-100">X</button><div  id=txt3 class="card" style="height:800px"><button class="btn btn-primary" id="bal" class = "button col-lg-100 col-md-100 col-sm-100"><-</button><div class="card col-lg-9 col-md-9 col-sm-9"><div class="card-header"><h2>' +
       KUTYAK[index].nev +
       '</h2></div><div class="card-body"><p>Kor: ' +
       KUTYAK[index].kor +
